@@ -14,6 +14,8 @@ function index() {
     var myCarsY = new Array();
     var loadingTime = 0;
     var lock = threads.lock();
+    var timers = new Array("08-07 周五", "08-14 周五", "08-21 周五", "08-28 周五")
+    var timeIndex = 0
     while (true) {
         lock.lock();
         var loading = className("android.widget.TextView").findOne()
@@ -53,8 +55,15 @@ function index() {
             log("timeView", "timeView")
             var timeView = id("flightlist_calendarinternational_middle_tv").textContains("-").findOne()
             if (timeView != null) {
-                time = timeView.getText();
+                // time = timeView.getText();
                 timeView.parent().click();
+                log("timeIndex>>>>", timeIndex)
+                log("timers.size>>>>", timers.length)
+                if (timeIndex == timers.length) {
+                    timeIndex = 0;
+                }
+                time = timers[timeIndex]
+                timeIndex++;
                 log("时间>>>>", time)
                 clickCalender(time)
             } else if (time != null) {
